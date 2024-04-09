@@ -1,3 +1,5 @@
+import { Error } from "../components/Error";
+import { GifList } from "../components/GifList";
 import { SearchBox } from "../components/SearchBox";
 import { useSearchGifs } from "../hooks/useSearchGifs";
 
@@ -5,18 +7,18 @@ const SearchPage = () => {
   const { error, gifs, loading, handleChange, handleSubmit, query } =
     useSearchGifs();
 
-  console.log("error", error);
-  console.log("loading", loading);
-  console.log("gifs", gifs);
-
   return (
-    <div>
+    <div className="space-y-10">
       <SearchBox
         loading={loading}
         onChange={handleChange}
         onSubmit={handleSubmit}
         query={query}
       />
+
+      {error && <Error message={error} />}
+
+      <GifList gifs={gifs} />
     </div>
   );
 };

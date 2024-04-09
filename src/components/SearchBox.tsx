@@ -1,4 +1,5 @@
 import { FaMagnifyingGlass } from "../icons/FaMagnifyingGlass";
+import { FaSpinner } from "../icons/FaSpinner";
 
 type SearchBoxProps = {
   loading: boolean;
@@ -28,7 +29,11 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           disabled={loading}
           type="submit"
         >
-          <FaMagnifyingGlass className="fill-white" />
+          {loading ? (
+            <FaSpinner className="fill-white animate-spin" />
+          ) : (
+            <FaMagnifyingGlass className="fill-white" />
+          )}
         </button>
       </form>
     </div>
