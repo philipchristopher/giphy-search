@@ -1,10 +1,11 @@
+import { SearchBox } from "../components/SearchBox";
+
 const SearchPage = () => {
-    return (
-      <div>
-        <h1>Search Page</h1>
-      </div>
-    );
-  };
-  
-  export { SearchPage };
-  
+  return (
+    <div>
+      <SearchBox />
+    </div>
+  );
+};
+
+export { SearchPage };
