@@ -1,4 +1,5 @@
 import { GifList } from "../components/GifList";
+import { Loading } from "../components/Loading";
 import { useTrendingGifs } from "../hooks/useTrendingGifs";
 
 const TrendingPage = () => {
@@ -6,10 +7,10 @@ const TrendingPage = () => {
 
   console.log("gifs: ", gifs);
   console.log("error: ", error);
-  console.log("loading: ", loading);
 
   return (
     <div>
+      {loading && <Loading />}
       <GifList gifs={gifs} />
     </div>
   );
