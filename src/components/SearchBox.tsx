@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { FaMagnifyingGlass } from "../icons/FaMagnifyingGlass";
 import { FaSpinner } from "../icons/FaSpinner";
 
@@ -14,10 +15,18 @@ const SearchBox: React.FC<SearchBoxProps> = ({
   onSubmit,
   query,
 }) => {
+  const refSearch = useRef<HTMLInputElement>(null);
+
+  // Focus the search input on mount
+  useEffect(() => {
+    refSearch.current?.focus();
+  }, []);
+
   return (
     <div className="flex justify-center">
       <form className="relative w-full md:w-1/2" onSubmit={onSubmit}>
         <input
+          ref={refSearch}
           className="border border-gray-300 py-2 rounded-full w-full pl-5 pr-12"
           onChange={onChange}
           placeholder="Search for GIFs"
