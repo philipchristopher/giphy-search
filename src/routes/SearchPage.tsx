@@ -1,11 +1,13 @@
+import { useParams } from "react-router-dom";
 import { Error } from "../components/Error";
 import { GifList } from "../components/GifList";
 import { SearchBox } from "../components/SearchBox";
 import { useSearchGifs } from "../hooks/useSearchGifs";
 
 const SearchPage = () => {
+  const { query: urlQuery } = useParams();
   const { error, gifs, loading, handleChange, handleSubmit, query } =
-    useSearchGifs();
+    useSearchGifs({ urlQuery });
 
   return (
     <div className="space-y-10">
