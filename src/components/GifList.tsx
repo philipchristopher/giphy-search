@@ -1,13 +1,16 @@
+import { Gif } from "../data-access/types";
 import { GifCard } from "./GifCard";
 
-const GifList: React.FC = () => {
+type GifListProps = {
+  gifs: Gif[];
+};
+
+const GifList: React.FC<GifListProps> = ({ gifs }) => {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {Array(8)
-        .fill("")
-        .map((_, index) => (
-          <GifCard key={index} />
-        ))}
+      {gifs.map(({ id, url, images, title }) => (
+        <GifCard key={id} images={images} title={title} url={url} />
+      ))}
     </div>
   );
 };

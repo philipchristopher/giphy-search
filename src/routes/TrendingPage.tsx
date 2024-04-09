@@ -10,7 +10,7 @@ const TrendingPage = () => {
 
   return (
     <div>
-      <GifList />
+      <GifList gifs={gifs} />
     </div>
   );
 };
