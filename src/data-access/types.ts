@@ -19,10 +19,20 @@ type Gif = {
 };
 
 /**
+ * Paginatation data from Giphy API.
+ */
+type Pagination = {
+  count: number;
+  offset: number;
+  total_count: number;
+};
+
+/**
  * Response from the Giphy API.
  */
 type GifResponse = {
   data: Gif[];
+  pagination: Pagination;
 };
 
-export type { Gif, GifResponse };
+export type { Gif, GifResponse, Pagination };

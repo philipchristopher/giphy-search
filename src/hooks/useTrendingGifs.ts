@@ -13,14 +13,32 @@ const useTrendingGifs = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
 
+  // Pagination state
+  const [position, setPosition] = useState<number>(0);
+  const [hasMore, setHasMore] = useState<boolean>(true);
+
+  /**
+   * Fetch more gifs
+   */
+  const handleFetchMore = () => {
+    setPosition(position + 1);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       setError("");
 
       try {
-        const { data } = await getTrendingGifs();
-        setGifs(data);
+        const { data, pagination } = await getTrendingGifs({
+          position,
+        });
+
+        // Append new gifs to the existing list
+        setGifs((prevGifs) => [...prevGifs, ...data]);
+
+        // Check if there are more gifs to fetch
+        setHasMore(pagination.total_count > position * pagination.count);
       } catch (error) {
         const errorMessage =
           error instanceof Error ? error.message : "An error occurred";
@@ -31,11 +49,13 @@ const useTrendingGifs = () => {
     };
 
     fetchData();
-  }, []);
+  }, [position]);
 
   return {
     error,
     gifs,
+    handleFetchMore,
+    hasMore,
     loading,
   };
 };

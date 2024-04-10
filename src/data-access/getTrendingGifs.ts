@@ -1,14 +1,22 @@
 import { GifResponse } from "./types";
 
+type Payload = {
+  position?: number;
+  limit?: number;
+};
+
 /**
  * Fetch all gifs from the trending Giphy API.
  */
-const getTrendingGifs = async (): Promise<GifResponse> => {
+const getTrendingGifs = async ({
+  position = 0,
+  limit = 10,
+}: Payload): Promise<GifResponse> => {
   const params = new URLSearchParams({
     api_key: import.meta.env.VITE_APP_GIPHY_API_KEY || "",
     rating: "g",
-    limit: "10",
-    offset: "0",
+    limit: `${limit}`,
+    offset: `${position * limit}`,
   });
 
   const endpoint = `${
@@ -24,6 +32,7 @@ const getTrendingGifs = async (): Promise<GifResponse> => {
 
   return {
     data: json.data,
+    pagination: json.pagination,
   };
 };
 
