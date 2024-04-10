@@ -23,6 +23,9 @@ const useTrendingGifs = () => {
    * Fetch more gifs
    */
   const handleFetchMore = () => {
+    // Prevent fetching if there's an error, loading, or no more gifs
+    if (error || loading || !hasMore) return;
+
     setPosition(position + 1);
   };
 

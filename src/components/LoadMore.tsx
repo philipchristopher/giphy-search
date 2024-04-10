@@ -5,6 +5,7 @@ import { useInView } from "../hooks/useInView";
 type LoadMoreProps = {
   hasMore: boolean;
   onFetchMore: () => void;
+  loading?: boolean;
 };
 
 /**
@@ -13,6 +14,7 @@ type LoadMoreProps = {
 const LoadMore: React.FC<LoadMoreProps> = ({
   hasMore,
   onFetchMore,
+  loading,
 }: LoadMoreProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { inView } = useInView(ref);
@@ -21,7 +23,8 @@ const LoadMore: React.FC<LoadMoreProps> = ({
     // Artifically delay the fetch to prevent multiple requests.
     let timeout: number;
 
-    if (inView) {
+    // Fetch more gifs when the user scrolls to the bottom of the page
+    if (inView && !loading) {
       timeout = setTimeout(() => {
         onFetchMore();
       }, 700);
@@ -31,7 +34,7 @@ const LoadMore: React.FC<LoadMoreProps> = ({
     return () => {
       timeout && clearTimeout(timeout);
     };
-  }, [onFetchMore, inView]);
+  }, [onFetchMore, inView, loading]);
 
   if (!hasMore) {
     return null;
@@ -43,7 +46,7 @@ const LoadMore: React.FC<LoadMoreProps> = ({
       className="bg-slate-100 w-64 mx-auto border-slate-400 rounded-full border my-10 flex items-center justify-center gap-2 p-5 text-center italic tracking-wider text-slate-500"
     >
       <FaSpinner className="mr-1 animate-spin fill-slate-500" />
-      Loading &hellip;
+      Getting Gifs &hellip;
     </div>
   );
 };

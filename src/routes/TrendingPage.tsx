@@ -8,6 +8,8 @@ import { useTrendingGifs } from "../hooks/useTrendingGifs";
 const TrendingPage = () => {
   const { error, gifs, handleFetchMore, hasMore, loading } = useTrendingGifs();
 
+  console.log("loading: ", loading);
+
   return (
     <div className="space-y-10">
       <TrendingSearchBox />
@@ -18,7 +20,11 @@ const TrendingPage = () => {
       <GifList gifs={gifs} />
 
       {gifs.length > 0 && (
-        <LoadMore hasMore={hasMore} onFetchMore={handleFetchMore} />
+        <LoadMore
+          hasMore={hasMore}
+          loading={loading}
+          onFetchMore={handleFetchMore}
+        />
       )}
     </div>
   );
