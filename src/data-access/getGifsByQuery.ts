@@ -31,6 +31,7 @@ const getGifsByQuery = async ({
 
   return {
     data: json.data,
+    pagination: json.pagination,
   };
 };
 
