@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getTrendingGifs } from "../data-access/getTrendingGifs";
 import { Gif } from "../data-access/types";
 
@@ -17,6 +17,8 @@ const useTrendingGifs = () => {
   const [position, setPosition] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
 
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   /**
    * Fetch more gifs
    */
@@ -25,6 +27,10 @@ const useTrendingGifs = () => {
   };
 
   useEffect(() => {
+    // Reset the previous controller if it's pending, then create a new one for this request
+    abortControllerRef.current?.abort();
+    abortControllerRef.current = new AbortController();
+
     const fetchData = async () => {
       setLoading(true);
       setError("");
@@ -32,6 +38,7 @@ const useTrendingGifs = () => {
       try {
         const { data, pagination } = await getTrendingGifs({
           position,
+          signal: abortControllerRef.current?.signal,
         });
 
         // Append new gifs to the existing list
@@ -40,6 +47,9 @@ const useTrendingGifs = () => {
         // Check if there are more gifs to fetch
         setHasMore(pagination.total_count > position * pagination.count);
       } catch (error) {
+        // Safely ignore abort errors
+        if (error instanceof Error && error.name === "AbortError") return;
+
         const errorMessage =
           error instanceof Error ? error.message : "An error occurred";
         setError(errorMessage);
