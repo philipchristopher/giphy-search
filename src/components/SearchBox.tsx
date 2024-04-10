@@ -24,7 +24,11 @@ const SearchBox: React.FC<SearchBoxProps> = ({
 
   return (
     <div className="flex justify-center">
-      <form className="relative w-full md:w-1/2" onSubmit={onSubmit}>
+      <form
+        role="form"
+        className="relative w-full md:w-1/2"
+        onSubmit={onSubmit}
+      >
         <input
           ref={refSearch}
           className="border border-gray-300 py-2 rounded-full w-full pl-5 pr-12"
@@ -34,6 +38,7 @@ const SearchBox: React.FC<SearchBoxProps> = ({
           value={query}
         />
         <button
+          role="button"
           className="bg-blue-500 disabled:bg-slate-500 rounded-full w-8 h-8 flex justify-center items-center absolute right-2 top-1/2 -translate-y-1/2"
           disabled={loading}
           type="submit"
