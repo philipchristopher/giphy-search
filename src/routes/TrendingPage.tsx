@@ -1,11 +1,12 @@
 import { Error } from "../components/Error";
 import { GifList } from "../components/GifList";
+import { LoadMore } from "../components/LoadMore";
 import { Loading } from "../components/Loading";
 import { TrendingSearchBox } from "../components/TrendingSearchBox";
 import { useTrendingGifs } from "../hooks/useTrendingGifs";
 
 const TrendingPage = () => {
-  const { error, gifs, loading } = useTrendingGifs();
+  const { error, gifs, handleFetchMore, hasMore, loading } = useTrendingGifs();
 
   console.log("gifs: ", gifs);
 
@@ -17,6 +18,10 @@ const TrendingPage = () => {
       {loading && <Loading />}
 
       <GifList gifs={gifs} />
+
+      {gifs.length > 0 && (
+        <LoadMore hasMore={hasMore} onFetchMore={handleFetchMore} />
+      )}
     </div>
   );
 };
