@@ -21,7 +21,7 @@ const LoadMore: React.FC<LoadMoreProps> = ({
 
   useEffect(() => {
     // Artifically delay the fetch to prevent multiple requests.
-    let timeout: number;
+    let timeout: NodeJS.Timeout;
 
     // Fetch more gifs when the user scrolls to the bottom of the page
     if (inView && !loading) {
