@@ -13,8 +13,12 @@ const GifProvider = ({ children }: React.PropsWithChildren) => {
     setImageIds(ids);
   };
 
+  const isImageSaved = (id: string) => imageIds.includes(id);
+
   return (
-    <GifContext.Provider value={{ imageIds, addImageId, removeImageId }}>
+    <GifContext.Provider
+      value={{ imageIds, addImageId, removeImageId, isImageSaved }}
+    >
       {children}
     </GifContext.Provider>
   );
