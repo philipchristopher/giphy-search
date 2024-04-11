@@ -9,14 +9,16 @@ type GifCardProps = Pick<Gif, "id" | "images" | "title">;
  * be saved by clicking on the card.
  */
 const GifCard: React.FC<GifCardProps> = ({ id, images, title }) => {
-  const { addImageId, removeImageId, imageIds, isImageSaved } = useGifContext();
+  const { addImageId, removeImageId, isImageSaved } = useGifContext();
+
   const isActive = isImageSaved(id);
+
   const handleSaveImage = () => {
-    if (imageIds.includes(id)) {
+    if (isActive) {
       removeImageId(id);
       return;
     }
-    addImageId(id);
+    addImageId({ id, url: images.fixed_width_downsampled.url });
   };
 
   return (

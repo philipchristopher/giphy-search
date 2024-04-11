@@ -1,10 +1,11 @@
 import { createContext } from "react";
+import { SavedGif } from "./GifProvider";
 
 type GifContextType = {
-  imageIds: string[];
-  addImageId: (id: string) => void;
-  removeImageId: (id: string) => void;
-  isImageSaved: (id: string) => boolean;
+  imageIds: SavedGif[];
+  addImageId: ({ id, url }: SavedGif) => void;
+  removeImageId: (id: SavedGif["id"]) => void;
+  isImageSaved: (id: SavedGif["id"]) => boolean;
 };
 
 const GifContext = createContext<GifContextType | null>(null);
