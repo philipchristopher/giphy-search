@@ -9,6 +9,10 @@ const navLinks = [
     name: "Search",
     path: "/search",
   },
+  {
+    name: "Saved",
+    path: "/saved",
+  },
 ];
 
 const RootPage = () => {

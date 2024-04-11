@@ -3,6 +3,7 @@ import { RootPage } from "../routes/RootPage";
 import { TrendingPage } from "./TrendingPage";
 import { SearchPage } from "../routes/SearchPage";
 import { ErrorPage } from "./ErrorPage";
+import { SavedPage } from "./SavedPage";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
       {
         path: "search/:query",
         element: <SearchPage />,
+      },
+      {
+        path: "saved",
+        element: <SavedPage />,
       },
     ],
   },
