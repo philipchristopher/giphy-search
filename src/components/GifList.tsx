@@ -8,8 +8,8 @@ type GifListProps = {
 const GifList: React.FC<GifListProps> = ({ gifs }) => {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {gifs.map(({ id, images, title }, index) => (
-        <GifCard key={`${index}-${id}`} id={id} images={images} title={title} />
+      {gifs.map((gif, index) => (
+        <GifCard key={`${index}-${gif.id}`} gif={gif} />
       ))}
     </div>
   );

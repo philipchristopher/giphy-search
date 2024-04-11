@@ -2,23 +2,25 @@ import { useGifContext } from "../context/useGifContext";
 import { Gif } from "../data-access/types";
 import { FaHeart } from "../icons/FaHeart";
 
-type GifCardProps = Pick<Gif, "id" | "images" | "title">;
+type GifCardProps = {
+  gif: Gif;
+};
 
 /**
  * Displays a single gif card. The card has an image and a title. The image can
  * be saved by clicking on the card.
  */
-const GifCard: React.FC<GifCardProps> = ({ id, images, title }) => {
-  const { addImageId, removeImageId, isImageSaved } = useGifContext();
+const GifCard: React.FC<GifCardProps> = ({ gif }) => {
+  const { id, title, images } = gif;
 
-  const isActive = isImageSaved(id);
-
+  const { saveGif, removeGif, isGifSaved } = useGifContext();
+  const isActive = isGifSaved(id);
   const handleSaveImage = () => {
     if (isActive) {
-      removeImageId(id);
+      removeGif(id);
       return;
     }
-    addImageId({ id, url: images.fixed_width_downsampled.url });
+    saveGif(gif);
   };
 
   return (

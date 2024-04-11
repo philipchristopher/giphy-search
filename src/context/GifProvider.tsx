@@ -1,34 +1,27 @@
 import { useState } from "react";
 import { GifContext } from "./GifContext";
-
-type SavedGif = {
-  id: string;
-  url: string;
-};
+import { Gif } from "../data-access/types";
 
 const GifProvider = ({ children }: React.PropsWithChildren) => {
-  const [imageIds, setImageIds] = useState<SavedGif[]>([]);
+  const [savedGifs, setSavedGifs] = useState<Gif[]>([]);
 
-  const addImageId = ({ id, url }: SavedGif) => {
-    setImageIds([...imageIds, { id, url }]);
+  const saveGif = (gif: Gif) => {
+    setSavedGifs([...savedGifs, gif]);
   };
 
-  const removeImageId = (id: string) => {
-    const ids = imageIds.filter((imageId) => imageId.id !== id);
-    setImageIds(ids);
+  const removeGif = (id: string) => {
+    const ids = savedGifs.filter((imageId) => imageId.id !== id);
+    setSavedGifs(ids);
   };
 
-  const isImageSaved = (id: string) =>
-    imageIds.some((imageId) => imageId.id === id);
+  const isGifSaved = (id: string) =>
+    savedGifs.some((imageId) => imageId.id === id);
 
   return (
-    <GifContext.Provider
-      value={{ imageIds, addImageId, removeImageId, isImageSaved }}
-    >
+    <GifContext.Provider value={{ savedGifs, saveGif, removeGif, isGifSaved }}>
       {children}
     </GifContext.Provider>
   );
 };
 
-export type { SavedGif };
 export { GifProvider };
