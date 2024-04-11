@@ -30,8 +30,6 @@ const useTrendingGifs = () => {
   };
 
   useEffect(() => {
-    // Reset the previous controller if it's pending, then create a new one for this request
-    abortControllerRef.current?.abort();
     abortControllerRef.current = new AbortController();
 
     const fetchData = async () => {
@@ -62,6 +60,10 @@ const useTrendingGifs = () => {
     };
 
     fetchData();
+
+    return () => {
+      abortControllerRef.current?.abort();
+    };
   }, [position]);
 
   return {
