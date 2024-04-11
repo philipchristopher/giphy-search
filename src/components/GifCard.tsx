@@ -38,8 +38,8 @@ const GifCard: React.FC<GifCardProps> = ({ gif }) => {
         className="rounded-xl mb-2 bg-slate-200 object-cover h-[200px] group-hover:scale-110 group-hover:grayscale transition-[transform,colors,filter] group-hover:brightness-[0.3]"
       />
       <FaHeart
-        className={`top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 absolute fill-white scale-[5] transition-transform group-hover:opacity-100 opacity-0 ${
-          isActive ? "scale-[8] fill-rose-400" : ""
+        className={`top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 absolute transition-transform group-hover:opacity-100 opacity-0 ${
+          isActive ? "scale-[8] fill-rose-400" : "fill-white scale-[5]"
         }`}
       />
       <p className="text-transparent transition-colors -mt-9 rounded-b-lg py-1 px-4 font-semibold drop-shadow-md group-hover:bg-slate-800/30 group-hover:text-white text-sm truncate capitalize">
