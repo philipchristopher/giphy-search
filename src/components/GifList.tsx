@@ -1,5 +1,6 @@
 import { Gif } from "../data-access/types";
 import { GifCard } from "./GifCard";
+import { GifCardEmpty } from "./GifCardEmpty";
 
 type GifListProps = {
   gifs: Gif[];
@@ -8,9 +9,15 @@ type GifListProps = {
 const GifList: React.FC<GifListProps> = ({ gifs }) => {
   return (
     <div className="flex flex-wrap gap-4 justify-center">
-      {gifs.map((gif, index) => (
-        <GifCard key={`${index}-${gif.id}`} gif={gif} />
-      ))}
+      {gifs.length === 0 ? (
+        <GifCardEmpty />
+      ) : (
+        <>
+          {gifs.map((gif, index) => (
+            <GifCard key={`${index}-${gif.id}`} gif={gif} />
+          ))}
+        </>
+      )}
     </div>
   );
 };
