@@ -1,9 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GifContext } from "./GifContext";
 import { Gif } from "../data-access/types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
+/**
+ * Manage saved gifs
+ */
 const GifProvider = ({ children }: React.PropsWithChildren) => {
-  const [savedGifs, setSavedGifs] = useState<Gif[]>([]);
+  const { setItem, getItem } = useLocalStorage("savedGifs");
+
+  // Retrieve gifs from local storage
+  const savedGifsFromLocalStorage = getItem() as Gif[] | null;
+
+  const [savedGifs, setSavedGifs] = useState<Gif[]>(
+    savedGifsFromLocalStorage || []
+  );
+
+  // Save gifs to local storage whenever gifs change
+  useEffect(() => {
+    setItem(savedGifs);
+  }, [savedGifs, setItem]);
 
   const saveGif = (gif: Gif) => {
     setSavedGifs([...savedGifs, gif]);
