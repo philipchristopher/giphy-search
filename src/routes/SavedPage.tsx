@@ -1,15 +1,15 @@
 import { GifList } from "../components/GifList";
+import { useGifContext } from "../context/useGifContext";
 
 /**
  * Displays the gifs saved by the user.
  */
 const SavedPage = () => {
-  //   const { gifs } = useSearchGifs();
+  const { savedGifs } = useGifContext();
 
   return (
     <div className="space-y-10">
-      <p>Display gifs here</p>
-      <GifList gifs={[]} />
+      <GifList gifs={savedGifs} />
     </div>
   );
 };
